@@ -14,9 +14,8 @@ dependencies {
     }
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-    modImplementation "com.terraformersmc:modmenu:7.2.2"
-    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
-    implementation project(":common")
+    modImplementation "com.terraformersmc:modmenu:11.0.4"
+    compileOnly group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
 }
 
 loom {

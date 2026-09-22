@@ -241,13 +241,13 @@ public class MergeConfigScreen extends Screen {
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
         if (mouseY >= VIEW_TOP && mouseY <= height - 20) {
-            scroll = (int) Math.max(0, Math.min(maxScroll, scroll - (long) (amount * ITEM_H)));
+            scroll = (int) Math.max(0, Math.min(maxScroll, scroll - (long) (scrollY * ITEM_H)));
             layoutRows();
             return true;
         }
-        return super.mouseScrolled(mouseX, mouseY, amount);
+        return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
     }
 
     private void saveAndClose() {
@@ -304,7 +304,7 @@ public class MergeConfigScreen extends Screen {
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        renderBackground(graphics);
+        renderBackground(graphics, mouseX, mouseY, partialTick);
         super.render(graphics, mouseX, mouseY, partialTick);
         graphics.drawString(font, Component.translatable("artifactsmerging.config.title"), 14, 12, 0xFFFFFFFF, false);
         WorkingGroup group = current();
