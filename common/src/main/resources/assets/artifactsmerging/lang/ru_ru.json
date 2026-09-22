@@ -1,0 +1,9 @@
+{
+  "item.artifactsmerging.random_artifact": "Случайный предмет",
+  "artifactsmerging.config.title": "Artifacts Merging",
+  "artifactsmerging.config.count": "Количество",
+  "artifactsmerging.config.items": "Предметы",
+  "artifactsmerging.config.add": "Добавить",
+  "artifactsmerging.config.save": "Сохранить",
+  "artifactsmerging.config.cancel": "Отмена"
+}

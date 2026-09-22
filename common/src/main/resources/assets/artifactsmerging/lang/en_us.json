@@ -1,0 +1,9 @@
+{
+  "item.artifactsmerging.random_artifact": "Random Item",
+  "artifactsmerging.config.title": "Artifacts Merging",
+  "artifactsmerging.config.count": "Count",
+  "artifactsmerging.config.items": "Items",
+  "artifactsmerging.config.add": "Add",
+  "artifactsmerging.config.save": "Save",
+  "artifactsmerging.config.cancel": "Cancel"
+}

@@ -1,0 +1,46 @@
+package com.putzwirk.artifacts_merging_multiloader.recipe;
+
+import com.putzwirk.artifacts_merging_multiloader.compat.RecipeMatcher;
+import com.putzwirk.artifacts_merging_multiloader.item.RandomArtifactItem;
+import com.putzwirk.artifacts_merging_multiloader.registry.ModRecipes;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.level.Level;
+
+import java.util.List;
+
+public class ArtifactMergingRecipe extends CustomRecipe {
+    public ArtifactMergingRecipe(ResourceLocation id, CraftingBookCategory category) {
+        super(id, category);
+    }
+
+    @Override
+    public boolean matches(CraftingContainer container, Level level) {
+        return RecipeMatcher.findGroupId(RecipeMatcher.inputIds(container)) != null;
+    }
+
+    @Override
+    public ItemStack assemble(CraftingContainer container, RegistryAccess registryAccess) {
+        List<String> inputIds = RecipeMatcher.inputIds(container);
+        String groupId = RecipeMatcher.findGroupId(inputIds);
+        if (groupId == null) {
+            return ItemStack.EMPTY;
+        }
+        return RandomArtifactItem.create(groupId, inputIds);
+    }
+
+    @Override
+    public boolean canCraftInDimensions(int width, int height) {
+        return width * height >= 1;
+    }
+
+    @Override
+    public RecipeSerializer<?> getSerializer() {
+        return ModRecipes.get();
+    }
+}
