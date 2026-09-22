@@ -17,6 +17,13 @@ dependencies {
     modImplementation "com.terraformersmc:modmenu:7.2.2"
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
     implementation project(":common")
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
+}
+
+sourceSets.test.java.srcDir project(':common').file('src/test/java')
+
+test {
+    useJUnitPlatform()
 }
 
 loom {
