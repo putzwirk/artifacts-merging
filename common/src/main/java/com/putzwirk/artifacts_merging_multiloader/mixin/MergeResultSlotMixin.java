@@ -58,7 +58,7 @@ public abstract class MergeResultSlotMixin extends Slot {
                 player.getInventory().setItem(slot, result);
             }
         }
-        player.level().playSound(null, player.getX(), player.getY(), player.getZ(),
+        player.getLevel().playSound(null, player.getX(), player.getY(), player.getZ(),
             SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1.0F, 1.2F);
         return true;
     }

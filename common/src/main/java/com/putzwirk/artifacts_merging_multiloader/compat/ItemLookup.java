@@ -1,6 +1,6 @@
 package com.putzwirk.artifacts_merging_multiloader.compat;
 
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -16,12 +16,12 @@ public final class ItemLookup {
     }
 
     public static String id(ItemStack stack) {
-        return BuiltInRegistries.ITEM.getKey(stack.getItem()).toString();
+        return Registry.ITEM.getKey(stack.getItem()).toString();
     }
 
     @Nullable
     public static Item item(ResourceLocation id) {
-        Item item = BuiltInRegistries.ITEM.get(id);
+        Item item = Registry.ITEM.get(id);
         return item == Items.AIR ? null : item;
     }
 

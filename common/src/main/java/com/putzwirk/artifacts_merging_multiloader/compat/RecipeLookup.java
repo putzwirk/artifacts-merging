@@ -1,6 +1,6 @@
 package com.putzwirk.artifacts_merging_multiloader.compat;
 
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 
@@ -13,6 +13,6 @@ public final class RecipeLookup {
 
     @Nullable
     public static RecipeSerializer<?> serializer(ResourceLocation id) {
-        return BuiltInRegistries.RECIPE_SERIALIZER.get(id);
+        return Registry.RECIPE_SERIALIZER.get(id);
     }
 }

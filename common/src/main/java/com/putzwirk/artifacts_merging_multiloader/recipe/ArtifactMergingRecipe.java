@@ -3,11 +3,9 @@ package com.putzwirk.artifacts_merging_multiloader.recipe;
 import com.putzwirk.artifacts_merging_multiloader.compat.RecipeMatcher;
 import com.putzwirk.artifacts_merging_multiloader.item.RandomArtifactItem;
 import com.putzwirk.artifacts_merging_multiloader.registry.ModRecipes;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
@@ -15,8 +13,8 @@ import net.minecraft.world.level.Level;
 import java.util.List;
 
 public class ArtifactMergingRecipe extends CustomRecipe {
-    public ArtifactMergingRecipe(ResourceLocation id, CraftingBookCategory category) {
-        super(id, category);
+    public ArtifactMergingRecipe(ResourceLocation id) {
+        super(id);
     }
 
     @Override
@@ -25,7 +23,7 @@ public class ArtifactMergingRecipe extends CustomRecipe {
     }
 
     @Override
-    public ItemStack assemble(CraftingContainer container, RegistryAccess registryAccess) {
+    public ItemStack assemble(CraftingContainer container) {
         List<String> inputIds = RecipeMatcher.inputIds(container);
         String groupId = RecipeMatcher.findGroupId(inputIds);
         if (groupId == null) {

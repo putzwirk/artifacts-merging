@@ -9,7 +9,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -20,8 +19,8 @@ public class ArtifactsMergingMultiloader implements ModInitializer {
     @Override
     public void onInitialize() {
         ArtifactsMergingCommon.init();
-        Registry.register(BuiltInRegistries.ITEM, ModItems.RANDOM_ARTIFACT_ID, ModItems.create());
-        Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, ModRecipes.ARTIFACT_MERGING_ID, ModRecipes.create());
+        Registry.register(Registry.ITEM, ModItems.RANDOM_ARTIFACT_ID, ModItems.create());
+        Registry.register(Registry.RECIPE_SERIALIZER, ModRecipes.ARTIFACT_MERGING_ID, ModRecipes.create());
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> sendConfig(handler.player));
     }
 

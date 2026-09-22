@@ -2,9 +2,10 @@ package com.putzwirk.artifacts_merging_multiloader.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.putzwirk.artifacts_merging_multiloader.Constants;
 import com.putzwirk.artifacts_merging_multiloader.client.ClientIconCache;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
@@ -100,23 +101,20 @@ public class MergeConfigScreen extends Screen {
         int tabX = 14;
         for (int i = 0; i < working.size(); i++) {
             final int idx = i;
-            Button tab = Button.builder(Component.literal(String.valueOf(i + 1)), button -> selectTab(idx))
-                .bounds(tabX, 34, 30, 20).build();
+            Button tab = new Button(tabX, 34, 30, 20, Component.literal(String.valueOf(i + 1)), button -> selectTab(idx));
             tab.active = idx != selected;
             addRenderableWidget(tab);
             tabX += 34;
         }
-        addRenderableWidget(Button.builder(Component.literal("+"), button -> addGroup()).bounds(tabX, 34, 30, 20).build());
-        addRenderableWidget(Button.builder(Component.translatable("artifactsmerging.config.save"), button -> saveAndClose())
-            .bounds(width - 192, 12, 92, 20).build());
-        addRenderableWidget(Button.builder(Component.translatable("artifactsmerging.config.cancel"), button -> closeToParent())
-            .bounds(width - 96, 12, 92, 20).build());
+        addRenderableWidget(new Button(tabX, 34, 30, 20, Component.literal("+"), button -> addGroup()));
+        addRenderableWidget(new Button(width - 192, 12, 92, 20, Component.translatable("artifactsmerging.config.save"), button -> saveAndClose()));
+        addRenderableWidget(new Button(width - 96, 12, 92, 20, Component.translatable("artifactsmerging.config.cancel"), button -> closeToParent()));
         WorkingGroup group = current();
         if (group == null) {
             layoutRows();
             return;
         }
-        addRenderableWidget(Button.builder(Component.literal("X"), button -> deleteGroup()).bounds(width - 30, 58, 20, 18).build());
+        addRenderableWidget(new Button(width - 30, 58, 20, 18, Component.literal("X"), button -> deleteGroup()));
         countField = new EditBox(font, 0, 0, 44, 18, Component.empty());
         countField.setMaxLength(1);
         countField.setValue(String.valueOf(group.entry.count));
@@ -130,10 +128,10 @@ public class MergeConfigScreen extends Screen {
         newItemField = new EditBox(font, 0, 0, 260, 18, Component.empty());
         newItemField.setMaxLength(128);
         addRenderableWidget(newItemField);
-        addItemBtn = Button.builder(Component.translatable("artifactsmerging.config.add"), button -> {
+        addItemBtn = new Button(0, 0, 50, 18, Component.translatable("artifactsmerging.config.add"), button -> {
             flushCurrent();
             init();
-        }).bounds(0, 0, 50, 18).build();
+        });
         addRenderableWidget(addItemBtn);
         layoutRows();
     }
@@ -303,23 +301,23 @@ public class MergeConfigScreen extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        renderBackground(graphics);
-        super.render(graphics, mouseX, mouseY, partialTick);
-        graphics.drawString(font, Component.translatable("artifactsmerging.config.title"), 14, 12, 0xFFFFFFFF, false);
+    public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+        renderBackground(poseStack);
+        super.render(poseStack, mouseX, mouseY, partialTick);
+        font.draw(poseStack, Component.translatable("artifactsmerging.config.title"), 14, 12, 0xFFFFFFFF);
         WorkingGroup group = current();
         if (group == null) {
             return;
         }
         Component groupLabel = Component.literal("Group " + (selected + 1));
         int labelWidth = font.width(groupLabel);
-        graphics.drawString(font, groupLabel, width - 30 - labelWidth - 8, 62, 0xFFFFFFFF, false);
-        graphics.enableScissor(0, VIEW_TOP, width, height - 20);
+        font.draw(poseStack, groupLabel, width - 30 - labelWidth - 8, 62, 0xFFFFFFFF);
+        GuiComponent.enableScissor(0, VIEW_TOP, width, height - 20);
         int y = VIEW_TOP - scroll;
-        graphics.drawString(font, Component.translatable("artifactsmerging.config.count").append(":"), 14, y + 4, 0xFFFFFFFF, false);
+        font.draw(poseStack, Component.translatable("artifactsmerging.config.count").append(":"), 14, y + 4, 0xFFFFFFFF);
         y += 24;
-        paintSection(graphics, y, "artifactsmerging.config.items", itemRows.size(), height - 20);
-        graphics.disableScissor();
+        paintSection(poseStack, y, "artifactsmerging.config.items", itemRows.size(), height - 20);
+        GuiComponent.disableScissor();
         if (maxScroll > 0) {
             int bottom = height - 20;
             int viewH = Math.max(1, bottom - VIEW_TOP);
@@ -328,18 +326,18 @@ public class MergeConfigScreen extends Screen {
             int thumbY = VIEW_TOP + (viewH - thumbH) * scroll / Math.max(1, maxScroll);
             int barLeft = width - 14;
             int barRight = width - 8;
-            graphics.fill(barLeft, VIEW_TOP, barRight, bottom, 0xFF101010);
-            graphics.fill(barLeft, thumbY, barRight, thumbY + thumbH, 0xFF808080);
-            graphics.fill(barLeft, thumbY, barRight - 1, thumbY + thumbH - 1, 0xFFA0A0A0);
+            GuiComponent.fill(poseStack, barLeft, VIEW_TOP, barRight, bottom, 0xFF101010);
+            GuiComponent.fill(poseStack, barLeft, thumbY, barRight, thumbY + thumbH, 0xFF808080);
+            GuiComponent.fill(poseStack, barLeft, thumbY, barRight - 1, thumbY + thumbH - 1, 0xFFA0A0A0);
         }
     }
 
-    private int paintSection(GuiGraphics graphics, int y, String key, int rows, int bottom) {
-        graphics.drawString(font, Component.translatable(key).append(":"), 14, y, 0xFFFFFFFF, false);
+    private int paintSection(PoseStack poseStack, int y, String key, int rows, int bottom) {
+        font.draw(poseStack, Component.translatable(key).append(":"), 14, y, 0xFFFFFFFF);
         y += 14;
         for (int k = 0; k < rows; k++) {
             if (y >= VIEW_TOP && y <= bottom) {
-                graphics.drawString(font, Component.literal((k + 1) + "."), 24, y + 5, 0xFF777777, false);
+                font.draw(poseStack, Component.literal((k + 1) + "."), 24, y + 5, 0xFF777777);
             }
             y += ITEM_H;
         }
@@ -348,16 +346,16 @@ public class MergeConfigScreen extends Screen {
     }
 
     private void setBox(EditBox widget, int x, int y, int bottom) {
-        widget.setX(x);
-        widget.setY(y);
+        widget.x = x;
+        widget.y = y;
         boolean visible = y >= VIEW_TOP && y <= bottom;
         widget.visible = visible;
         widget.active = visible;
     }
 
     private void setBtn(Button widget, int x, int y, int bottom) {
-        widget.setX(x);
-        widget.setY(y);
+        widget.x = x;
+        widget.y = y;
         boolean visible = y >= VIEW_TOP && y <= bottom;
         widget.visible = visible;
         widget.active = visible;
@@ -384,7 +382,7 @@ public class MergeConfigScreen extends Screen {
             field = new EditBox(font, 0, 0, 260, 18, Component.empty());
             field.setMaxLength(128);
             field.setValue(id);
-            del = Button.builder(Component.literal("X"), button -> removeMe()).bounds(0, 0, 20, 18).build();
+            del = new Button(0, 0, 20, 18, Component.literal("X"), button -> removeMe());
         }
 
         void removeMe() {
