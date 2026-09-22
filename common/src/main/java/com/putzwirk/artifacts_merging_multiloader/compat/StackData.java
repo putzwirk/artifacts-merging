@@ -1,9 +1,11 @@
 package com.putzwirk.artifacts_merging_multiloader.compat;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -19,19 +21,24 @@ public final class StackData {
     }
 
     public static void write(ItemStack stack, MergeData data) {
-        CompoundTag tag = stack.getOrCreateTag();
+        CompoundTag tag = new CompoundTag();
         tag.putString(GROUP, data.groupId());
         tag.put(EXCLUDED, stringList(data.excluded()));
         tag.put(POOL, stringList(data.pool()));
         if (data.result() != null) {
             tag.putString(RESULT, data.result());
         }
+        stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
     }
 
     @Nullable
     public static MergeData read(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-        if (tag == null || !tag.contains(GROUP)) {
+        CustomData custom = stack.get(DataComponents.CUSTOM_DATA);
+        if (custom == null) {
+            return null;
+        }
+        CompoundTag tag = custom.copyTag();
+        if (!tag.contains(GROUP)) {
             return null;
         }
         String result = tag.contains(RESULT) ? tag.getString(RESULT) : null;

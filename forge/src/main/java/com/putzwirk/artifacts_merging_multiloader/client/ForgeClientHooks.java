@@ -10,8 +10,8 @@ public final class ForgeClientHooks {
     private ForgeClientHooks() {
     }
 
-    public static void init() {
-        ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,
+    public static void init(ModLoadingContext context) {
+        context.registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,
             () -> new ConfigScreenHandler.ConfigScreenFactory((minecraft, parent) -> MergeConfigScreen.create(parent)));
         MinecraftForge.EVENT_BUS.addListener((ClientPlayerNetworkEvent.LoggingOut event) -> ClientConfigSync.resetToLocal());
     }

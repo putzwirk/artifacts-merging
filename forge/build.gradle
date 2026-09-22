@@ -1,44 +1,63 @@
 plugins {
     id 'multiloader-loader'
-    id 'net.neoforged.moddev.legacyforge'
+    id 'net.minecraftforge.gradle' version '[6.0.24,6.2)'
+    id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
 }
-
+base {
+    archivesName = "${mod_name}-forge-${minecraft_version}"
+}
 mixin {
-    add(sourceSets.main, "${mod_id}.refmap.json")
-
     config("${mod_id}.mixins.json")
     config("${mod_id}.forge.mixins.json")
 }
+jar {
+    manifest {
+        attributes["MixinConfigs"] = "${mod_id}.mixins.json,${mod_id}.forge.mixins.json"
+    }
+}
 
-legacyForge {
-    version = "${minecraft_version}-${forge_version}"
+minecraft {
+    mappings channel: 'official', version: minecraft_version
 
-    validateAccessTransformers = true
+    copyIdeResources = true
 
-    def at = project(':common').file('src/main/resources/META-INF/accesstransformer.cfg')
+    reobf = false
+
+    def at = file('src/main/resources/META-INF/accesstransformer.cfg')
     if (at.exists()) {
-        accessTransformers = ["src/main/resources/META-INF/accesstransformer.cfg"]
+        accessTransformer = at
     }
-    parchment {
-        minecraftVersion = parchment_minecraft
-        mappingsVersion = parchment_version
-    }
+
     runs {
         client {
-            client()
+            workingDirectory file('run')
+            ideaModule "${rootProject.name}.${project.name}.main"
+            mods {
+                modClientRun {
+                    source sourceSets.main
+                }
+            }
         }
-        data {
-            data()
-            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
-        }
-        server {
-            server()
-        }
-    }
 
-    mods {
-        "${mod_id}" {
-            sourceSet sourceSets.main
+        server {
+            workingDirectory file('run')
+            ideaModule "${rootProject.name}.${project.name}.main"
+            mods {
+                modServerRun {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory file('run')
+            ideaModule "${rootProject.name}.${project.name}.main"
+            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            mods {
+                modDataRun {
+                    source sourceSets.main
+                }
+            }
         }
     }
 }
@@ -46,13 +65,14 @@ legacyForge {
 sourceSets.main.resources.srcDir 'src/generated/resources'
 
 dependencies {
-    compileOnly project(":common")
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
+
+    implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
 }
 
-jar {
-    finalizedBy('reobfJar')
-    manifest.attributes([
-            "MixinConfigs": "${mod_id}.mixins.json,${mod_id}.forge.mixins.json"
-    ])
+sourceSets.each {
+    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+    it.output.resourcesDir = dir
+    it.java.destinationDirectory = dir
 }
