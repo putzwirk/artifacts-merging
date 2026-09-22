@@ -4,6 +4,8 @@ import com.putzwirk.artifacts_merging_multiloader.Constants;
 import com.putzwirk.artifacts_merging_multiloader.compat.Ids;
 import com.putzwirk.artifacts_merging_multiloader.compat.ItemLookup;
 import com.putzwirk.artifacts_merging_multiloader.item.RandomArtifactItem;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -14,7 +16,10 @@ public class ModItems {
     public static final ResourceLocation RANDOM_ARTIFACT_ID = Ids.of(Constants.MOD_ID, RANDOM_ARTIFACT_NAME);
 
     public static Item create() {
-        return new RandomArtifactItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
+        return new RandomArtifactItem(new Item.Properties()
+            .stacksTo(1)
+            .rarity(Rarity.UNCOMMON)
+            .setId(ResourceKey.create(Registries.ITEM, RANDOM_ARTIFACT_ID)));
     }
 
     public static Item get() {

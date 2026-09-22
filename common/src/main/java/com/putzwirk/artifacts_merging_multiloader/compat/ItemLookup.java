@@ -21,7 +21,7 @@ public final class ItemLookup {
 
     @Nullable
     public static Item item(ResourceLocation id) {
-        Item item = BuiltInRegistries.ITEM.get(id);
+        Item item = BuiltInRegistries.ITEM.getValue(id);
         return item == Items.AIR ? null : item;
     }
 

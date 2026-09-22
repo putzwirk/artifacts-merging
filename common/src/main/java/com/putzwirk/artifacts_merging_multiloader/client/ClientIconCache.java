@@ -1,6 +1,7 @@
 package com.putzwirk.artifacts_merging_multiloader.client;
 
 import com.mojang.blaze3d.platform.NativeImage;
+import com.putzwirk.artifacts_merging_multiloader.compat.Ids;
 import com.putzwirk.artifacts_merging_multiloader.config.MergeConfigManager;
 import com.putzwirk.artifacts_merging_multiloader.config.MergeEntry;
 import net.minecraft.client.Minecraft;
@@ -62,9 +63,10 @@ public final class ClientIconCache {
             if (image == null) {
                 continue;
             }
-            DynamicTexture texture = new DynamicTexture(image);
-            String safe = entry.id.replace('/', '_').replace('\\', '_');
-            ResourceLocation location = minecraft.getTextureManager().register("artifactsmerging/" + safe, texture);
+            DynamicTexture texture = new DynamicTexture(() -> "artifactsmerging " + entry.id, image);
+            String safe = entry.id.toLowerCase().replaceAll("[^a-z0-9_./-]", "_");
+            ResourceLocation location = Ids.of("artifactsmerging", safe);
+            minecraft.getTextureManager().register(location, texture);
             CACHE.put(entry.id, new Icon(location, image.getWidth(), image.getHeight()));
         }
     }

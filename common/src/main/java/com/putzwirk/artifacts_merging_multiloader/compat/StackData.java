@@ -1,9 +1,11 @@
 package com.putzwirk.artifacts_merging_multiloader.compat;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.StringTag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -19,23 +21,24 @@ public final class StackData {
     }
 
     public static void write(ItemStack stack, MergeData data) {
-        CompoundTag tag = stack.getOrCreateTag();
+        CompoundTag tag = new CompoundTag();
         tag.putString(GROUP, data.groupId());
         tag.put(EXCLUDED, stringList(data.excluded()));
         tag.put(POOL, stringList(data.pool()));
         if (data.result() != null) {
             tag.putString(RESULT, data.result());
         }
+        CustomData.set(DataComponents.CUSTOM_DATA, stack, tag);
     }
 
     @Nullable
     public static MergeData read(ItemStack stack) {
-        CompoundTag tag = stack.getTag();
-        if (tag == null || !tag.contains(GROUP)) {
+        CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        if (!tag.contains(GROUP)) {
             return null;
         }
-        String result = tag.contains(RESULT) ? tag.getString(RESULT) : null;
-        return new MergeData(tag.getString(GROUP), stringList(tag, EXCLUDED), stringList(tag, POOL), result);
+        String result = tag.getString(RESULT).orElse(null);
+        return new MergeData(tag.getStringOr(GROUP, ""), stringList(tag, EXCLUDED), stringList(tag, POOL), result);
     }
 
     private static ListTag stringList(List<String> values) {
@@ -48,9 +51,9 @@ public final class StackData {
 
     private static List<String> stringList(CompoundTag tag, String key) {
         List<String> out = new ArrayList<>();
-        ListTag list = tag.getList(key, 8);
+        ListTag list = tag.getListOrEmpty(key);
         for (int i = 0; i < list.size(); i++) {
-            out.add(list.getString(i));
+            out.add(list.getStringOr(i, ""));
         }
         return out;
     }

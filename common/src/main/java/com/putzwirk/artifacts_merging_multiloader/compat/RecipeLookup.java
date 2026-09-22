@@ -13,6 +13,6 @@ public final class RecipeLookup {
 
     @Nullable
     public static RecipeSerializer<?> serializer(ResourceLocation id) {
-        return BuiltInRegistries.RECIPE_SERIALIZER.get(id);
+        return BuiltInRegistries.RECIPE_SERIALIZER.getValue(id);
     }
 }

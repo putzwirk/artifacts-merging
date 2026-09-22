@@ -13,8 +13,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(GuiGraphics.class)
 public abstract class GuiIconMixin {
-    @Inject(method = "renderItem(Lnet/minecraft/world/item/ItemStack;IIII)V", at = @At("HEAD"), cancellable = true)
-    private void artifactsmerging$customIcon(ItemStack stack, int x, int y, int seed, int guiOffset, CallbackInfo ci) {
+    @Inject(method = "renderItem(Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;III)V", at = @At("HEAD"), cancellable = true)
+    private void artifactsmerging$customIcon(net.minecraft.world.entity.LivingEntity entity, net.minecraft.world.level.Level level, ItemStack stack, int x, int y, int seed, CallbackInfo ci) {
         if (!ModItems.isRandomArtifact(stack)) {
             return;
         }
@@ -23,7 +23,7 @@ public abstract class GuiIconMixin {
             return;
         }
         GuiGraphics self = (GuiGraphics) (Object) this;
-        self.blit(icon.location(), x, y, 0, 0.0F, 0.0F, 16, 16, icon.width(), icon.height());
+        self.blit(icon.location(), x, y, x + 16, y + 16, 0.0F, 1.0F, 0.0F, 1.0F);
         ci.cancel();
     }
 
