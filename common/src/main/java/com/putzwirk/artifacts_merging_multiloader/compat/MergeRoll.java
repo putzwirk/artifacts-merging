@@ -1,6 +1,6 @@
 package com.putzwirk.artifacts_merging_multiloader.compat;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

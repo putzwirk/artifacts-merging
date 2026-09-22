@@ -8,9 +8,10 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.network.chat.Component;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -216,38 +217,40 @@ public class MergeConfigScreen extends Screen {
     }
 
     @Override
-    public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (button == 0 && maxScroll > 0 && mouseX >= width - 16 && mouseX <= width - 6 && mouseY >= VIEW_TOP && mouseY <= height - 20) {
+    public boolean mouseClicked(MouseButtonEvent event, boolean isDoubleClick) {
+        double mouseX = event.x();
+        double mouseY = event.y();
+        if (event.button() == 0 && maxScroll > 0 && mouseX >= width - 16 && mouseX <= width - 6 && mouseY >= VIEW_TOP && mouseY <= height - 20) {
             barDrag = true;
             scrollTo(mouseY);
             return true;
         }
-        return super.mouseClicked(mouseX, mouseY, button);
+        return super.mouseClicked(event, isDoubleClick);
     }
 
     @Override
-    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+    public boolean mouseDragged(MouseButtonEvent event, double dragX, double dragY) {
         if (barDrag) {
-            scrollTo(mouseY);
+            scrollTo(event.y());
             return true;
         }
-        return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+        return super.mouseDragged(event, dragX, dragY);
     }
 
     @Override
-    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+    public boolean mouseReleased(MouseButtonEvent event) {
         barDrag = false;
-        return super.mouseReleased(mouseX, mouseY, button);
+        return super.mouseReleased(event);
     }
 
     @Override
-    public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
+    public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
         if (mouseY >= VIEW_TOP && mouseY <= height - 20) {
-            scroll = (int) Math.max(0, Math.min(maxScroll, scroll - (long) (amount * ITEM_H)));
+            scroll = (int) Math.max(0, Math.min(maxScroll, scroll - (long) (scrollY * ITEM_H)));
             layoutRows();
             return true;
         }
-        return super.mouseScrolled(mouseX, mouseY, amount);
+        return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
     }
 
     private void saveAndClose() {
@@ -304,7 +307,7 @@ public class MergeConfigScreen extends Screen {
 
     @Override
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
-        renderBackground(graphics);
+        renderBackground(graphics, mouseX, mouseY, partialTick);
         super.render(graphics, mouseX, mouseY, partialTick);
         graphics.drawString(font, Component.translatable("artifactsmerging.config.title"), 14, 12, 0xFFFFFFFF, false);
         WorkingGroup group = current();

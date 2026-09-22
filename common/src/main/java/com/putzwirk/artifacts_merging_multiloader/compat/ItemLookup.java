@@ -1,16 +1,15 @@
 package com.putzwirk.artifacts_merging_multiloader.compat;
 
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("deprecation")
 public final class ItemLookup {
     private ItemLookup() {
     }
@@ -20,14 +19,14 @@ public final class ItemLookup {
     }
 
     @Nullable
-    public static Item item(ResourceLocation id) {
-        Item item = BuiltInRegistries.ITEM.get(id);
+    public static Item item(Identifier id) {
+        Item item = BuiltInRegistries.ITEM.getValue(id);
         return item == Items.AIR ? null : item;
     }
 
     @Nullable
     public static Item item(String id) {
-        ResourceLocation location = Ids.parse(id);
+        Identifier location = Ids.parse(id);
         return location == null ? null : item(location);
     }
 

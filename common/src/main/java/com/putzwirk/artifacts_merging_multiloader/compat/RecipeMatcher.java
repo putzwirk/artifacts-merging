@@ -2,10 +2,10 @@ package com.putzwirk.artifacts_merging_multiloader.compat;
 
 import com.putzwirk.artifacts_merging_multiloader.config.MergeConfigManager;
 import com.putzwirk.artifacts_merging_multiloader.config.MergeEntry;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingInput;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +13,9 @@ public final class RecipeMatcher {
     private RecipeMatcher() {
     }
 
-    public static List<String> inputIds(CraftingContainer container) {
+    public static List<String> inputIds(CraftingInput container) {
         List<String> ids = new ArrayList<>();
-        for (int i = 0; i < container.getContainerSize(); i++) {
+        for (int i = 0; i < container.size(); i++) {
             ItemStack stack = container.getItem(i);
             if (!stack.isEmpty()) {
                 ids.add(ItemLookup.id(stack));

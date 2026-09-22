@@ -4,7 +4,7 @@ import com.putzwirk.artifacts_merging_multiloader.config.MergeConfigManager;
 import com.putzwirk.artifacts_merging_multiloader.config.MergeEntry;
 import net.minecraft.client.Minecraft;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public final class ClientNames {
     private ClientNames() {

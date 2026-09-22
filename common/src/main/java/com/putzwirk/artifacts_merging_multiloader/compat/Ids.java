@@ -1,19 +1,19 @@
 package com.putzwirk.artifacts_merging_multiloader.compat;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 public final class Ids {
     private Ids() {
     }
 
-    public static ResourceLocation of(String namespace, String path) {
-        return new ResourceLocation(namespace, path);
+    public static Identifier of(String namespace, String path) {
+        return Identifier.fromNamespaceAndPath(namespace, path);
     }
 
     @Nullable
-    public static ResourceLocation parse(String id) {
-        return ResourceLocation.tryParse(id);
+    public static Identifier parse(String id) {
+        return Identifier.tryParse(id);
     }
 }

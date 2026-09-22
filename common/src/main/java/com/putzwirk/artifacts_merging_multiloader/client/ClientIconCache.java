@@ -5,9 +5,9 @@ import com.putzwirk.artifacts_merging_multiloader.config.MergeConfigManager;
 import com.putzwirk.artifacts_merging_multiloader.config.MergeEntry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.DynamicTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class ClientIconCache {
-    public record Icon(ResourceLocation location, int width, int height) {
+    public record Icon(Identifier location, int width, int height) {
     }
 
     private static final Map<String, Icon> CACHE = new ConcurrentHashMap<>();
@@ -62,9 +62,10 @@ public final class ClientIconCache {
             if (image == null) {
                 continue;
             }
-            DynamicTexture texture = new DynamicTexture(image);
             String safe = entry.id.replace('/', '_').replace('\\', '_');
-            ResourceLocation location = minecraft.getTextureManager().register("artifactsmerging/" + safe, texture);
+            DynamicTexture texture = new DynamicTexture(() -> "artifactsmerging/" + safe, image);
+            Identifier location = Identifier.fromNamespaceAndPath("artifactsmerging", safe);
+            minecraft.getTextureManager().register(location, texture);
             CACHE.put(entry.id, new Icon(location, image.getWidth(), image.getHeight()));
         }
     }
