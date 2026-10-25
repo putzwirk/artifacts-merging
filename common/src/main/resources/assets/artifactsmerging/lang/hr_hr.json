@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Nasumični predmet"
+  "item.artifactsmerging.random_artifact": "Nasumični predmet",
+  "item.artifactsmerging.random_artifact.tooltip": "Desni klik za otvaranje",
+  "item.artifactsmerging.random_artifact.empty": "Ova kutija je prazna"
 }

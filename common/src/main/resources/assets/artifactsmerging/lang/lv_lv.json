@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Nejauša lieta"
+  "item.artifactsmerging.random_artifact": "Nejauša lieta",
+  "item.artifactsmerging.random_artifact.tooltip": "Ar peles labo pogu, lai atvērtu",
+  "item.artifactsmerging.random_artifact.empty": "Šī kaste ir tukša"
 }

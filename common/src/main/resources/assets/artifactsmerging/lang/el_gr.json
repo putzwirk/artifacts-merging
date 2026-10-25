@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Τυχαίο αντικείμενο"
+  "item.artifactsmerging.random_artifact": "Τυχαίο αντικείμενο",
+  "item.artifactsmerging.random_artifact.tooltip": "Δεξί κλικ για άνοιγμα",
+  "item.artifactsmerging.random_artifact.empty": "Αυτό το κουτί είναι άδειο"
 }

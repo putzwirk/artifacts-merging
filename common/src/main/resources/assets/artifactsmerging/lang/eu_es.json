@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Ausazko artikulua"
+  "item.artifactsmerging.random_artifact": "Ausazko artikulua",
+  "item.artifactsmerging.random_artifact.tooltip": "Egin klik eskuineko botoiarekin irekitzeko",
+  "item.artifactsmerging.random_artifact.empty": "Kutxa hau hutsik dago"
 }

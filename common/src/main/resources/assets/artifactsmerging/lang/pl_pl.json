@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Losowy przedmiot"
+  "item.artifactsmerging.random_artifact": "Losowy przedmiot",
+  "item.artifactsmerging.random_artifact.tooltip": "Kliknij prawym przyciskiem, aby otworzyć",
+  "item.artifactsmerging.random_artifact.empty": "To pudełko jest puste"
 }
