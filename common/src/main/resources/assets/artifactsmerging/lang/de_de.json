@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Zufälliger Gegenstand"
+  "item.artifactsmerging.random_artifact": "Zufälliger Gegenstand",
+  "item.artifactsmerging.random_artifact.tooltip": "Rechtsklick zum Öffnen",
+  "item.artifactsmerging.random_artifact.empty": "Diese Kiste ist leer"
 }

@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Rastgele Eşya"
+  "item.artifactsmerging.random_artifact": "Rastgele Eşya",
+  "item.artifactsmerging.random_artifact.tooltip": "Açmak için sağ tıklayın",
+  "item.artifactsmerging.random_artifact.empty": "Bu kutu boş"
 }

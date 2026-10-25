@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Atsitiktinis daiktas"
+  "item.artifactsmerging.random_artifact": "Atsitiktinis daiktas",
+  "item.artifactsmerging.random_artifact.tooltip": "Dešiniuoju pelės klavišu atidarykite",
+  "item.artifactsmerging.random_artifact.empty": "Ši dėžė tuščia"
 }

@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Vật phẩm ngẫu nhiên"
+  "item.artifactsmerging.random_artifact": "Vật phẩm ngẫu nhiên",
+  "item.artifactsmerging.random_artifact.tooltip": "Nhấp chuột phải để mở",
+  "item.artifactsmerging.random_artifact.empty": "Chiếc hộp này trống rỗng"
 }
