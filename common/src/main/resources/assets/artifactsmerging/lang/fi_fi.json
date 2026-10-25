@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Satunnainen esine"
+  "item.artifactsmerging.random_artifact": "Satunnainen esine",
+  "item.artifactsmerging.random_artifact.tooltip": "Napsauta hiiren oikealla avataksesi",
+  "item.artifactsmerging.random_artifact.empty": "Tämä laatikko on tyhjä"
 }

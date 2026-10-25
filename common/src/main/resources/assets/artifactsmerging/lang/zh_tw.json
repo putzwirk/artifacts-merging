@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "隨機物品"
+  "item.artifactsmerging.random_artifact": "隨機物品",
+  "item.artifactsmerging.random_artifact.tooltip": "右鍵開啟",
+  "item.artifactsmerging.random_artifact.empty": "這個盒子是空的"
 }

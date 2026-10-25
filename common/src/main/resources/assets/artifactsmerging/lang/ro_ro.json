@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Obiect aleatoriu"
+  "item.artifactsmerging.random_artifact": "Obiect aleatoriu",
+  "item.artifactsmerging.random_artifact.tooltip": "Clic dreapta pentru a deschide",
+  "item.artifactsmerging.random_artifact.empty": "Această cutie este goală"
 }

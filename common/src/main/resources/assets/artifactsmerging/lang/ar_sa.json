@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "غرض عشوائي"
+  "item.artifactsmerging.random_artifact": "غرض عشوائي",
+  "item.artifactsmerging.random_artifact.tooltip": "انقر بزر الفأرة الأيمن للفتح",
+  "item.artifactsmerging.random_artifact.empty": "هذا الصندوق فارغ"
 }

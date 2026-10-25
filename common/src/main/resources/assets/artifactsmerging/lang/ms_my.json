@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Item rawak"
+  "item.artifactsmerging.random_artifact": "Item rawak",
+  "item.artifactsmerging.random_artifact.tooltip": "Klik kanan untuk membuka",
+  "item.artifactsmerging.random_artifact.empty": "Kotak ini kosong"
 }

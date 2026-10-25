@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Lukrake item"
+  "item.artifactsmerging.random_artifact": "Lukrake item",
+  "item.artifactsmerging.random_artifact.tooltip": "Regskliek om oop te maak",
+  "item.artifactsmerging.random_artifact.empty": "Hierdie boks is leeg"
 }

@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Slumpmässigt föremål"
+  "item.artifactsmerging.random_artifact": "Slumpmässigt föremål",
+  "item.artifactsmerging.random_artifact.tooltip": "Högerklicka för att öppna",
+  "item.artifactsmerging.random_artifact.empty": "Den här lådan är tom"
 }

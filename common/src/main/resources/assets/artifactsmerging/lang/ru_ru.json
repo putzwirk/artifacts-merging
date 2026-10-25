@@ -1,5 +1,7 @@
 {
   "item.artifactsmerging.random_artifact": "Случайный предмет",
+  "item.artifactsmerging.random_artifact.tooltip": "Нажмите правой кнопкой, чтобы открыть",
+  "item.artifactsmerging.random_artifact.empty": "Эта коробка пуста",
   "artifactsmerging.config.title": "Artifacts Merging",
   "artifactsmerging.config.count": "Количество",
   "artifactsmerging.config.items": "Предметы",
