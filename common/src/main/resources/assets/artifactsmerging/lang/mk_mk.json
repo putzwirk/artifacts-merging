@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Случаен предмет"
+  "item.artifactsmerging.random_artifact": "Случаен предмет",
+  "item.artifactsmerging.random_artifact.tooltip": "Десен клик за отворање",
+  "item.artifactsmerging.random_artifact.empty": "Оваа кутија е празна"
 }

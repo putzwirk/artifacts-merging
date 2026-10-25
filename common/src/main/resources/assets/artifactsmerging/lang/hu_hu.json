@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Véletlenszerű tárgy"
+  "item.artifactsmerging.random_artifact": "Véletlenszerű tárgy",
+  "item.artifactsmerging.random_artifact.tooltip": "Jobb kattintás a megnyitáshoz",
+  "item.artifactsmerging.random_artifact.empty": "Ez a doboz üres"
 }

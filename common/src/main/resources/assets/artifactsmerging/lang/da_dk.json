@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Tilfældig genstand"
+  "item.artifactsmerging.random_artifact": "Tilfældig genstand",
+  "item.artifactsmerging.random_artifact.tooltip": "Højreklik for at åbne",
+  "item.artifactsmerging.random_artifact.empty": "Denne kasse er tom"
 }

@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "آیتم تصادفی"
+  "item.artifactsmerging.random_artifact": "آیتم تصادفی",
+  "item.artifactsmerging.random_artifact.tooltip": "برای باز کردن، کلیک راست کنید",
+  "item.artifactsmerging.random_artifact.empty": "این جعبه خالی است"
 }

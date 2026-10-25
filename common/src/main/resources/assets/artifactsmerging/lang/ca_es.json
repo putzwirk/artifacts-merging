@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Ítem aleatori"
+  "item.artifactsmerging.random_artifact": "Ítem aleatori",
+  "item.artifactsmerging.random_artifact.tooltip": "Fes clic dret per obrir",
+  "item.artifactsmerging.random_artifact.empty": "Aquesta caixa és buida"
 }

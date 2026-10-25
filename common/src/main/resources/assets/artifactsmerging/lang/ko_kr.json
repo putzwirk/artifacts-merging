@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "무작위 아이템"
+  "item.artifactsmerging.random_artifact": "무작위 아이템",
+  "item.artifactsmerging.random_artifact.tooltip": "마우스 오른쪽 버튼으로 열기",
+  "item.artifactsmerging.random_artifact.empty": "이 상자는 비어 있습니다"
 }
