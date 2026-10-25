@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "ไอเทมสุ่ม"
+  "item.artifactsmerging.random_artifact": "ไอเทมสุ่ม",
+  "item.artifactsmerging.random_artifact.tooltip": "คลิกขวาเพื่อเปิด",
+  "item.artifactsmerging.random_artifact.empty": "กล่องนี้ว่างเปล่า"
 }

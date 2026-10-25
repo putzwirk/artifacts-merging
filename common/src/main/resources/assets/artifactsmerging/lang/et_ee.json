@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Juhuslik ese"
+  "item.artifactsmerging.random_artifact": "Juhuslik ese",
+  "item.artifactsmerging.random_artifact.tooltip": "Paremklõpsa avamiseks",
+  "item.artifactsmerging.random_artifact.empty": "See kast on tühi"
 }

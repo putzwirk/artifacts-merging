@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "ランダムアイテム"
+  "item.artifactsmerging.random_artifact": "ランダムアイテム",
+  "item.artifactsmerging.random_artifact.tooltip": "右クリックで開く",
+  "item.artifactsmerging.random_artifact.empty": "この箱は空です"
 }

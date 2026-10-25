@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "यादृच्छिक वस्तु"
+  "item.artifactsmerging.random_artifact": "यादृच्छिक वस्तु",
+  "item.artifactsmerging.random_artifact.tooltip": "खोलने के लिए राइट-क्लिक करें",
+  "item.artifactsmerging.random_artifact.empty": "यह डिब्बा खाली है"
 }

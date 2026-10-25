@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "פריט אקראי"
+  "item.artifactsmerging.random_artifact": "פריט אקראי",
+  "item.artifactsmerging.random_artifact.tooltip": "לחץ לחיצה ימנית כדי לפתוח",
+  "item.artifactsmerging.random_artifact.empty": "הקופסה הזו ריקה"
 }
