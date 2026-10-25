@@ -1,5 +1,7 @@
 {
   "item.artifactsmerging.random_artifact": "Випадковий предмет",
+  "item.artifactsmerging.random_artifact.tooltip": "Натисніть правою кнопкою, щоб відкрити",
+  "item.artifactsmerging.random_artifact.empty": "Ця коробка порожня",
   "artifactsmerging.config.title": "Artifacts Merging",
   "artifactsmerging.config.count": "Кількість",
   "artifactsmerging.config.items": "Предмети",

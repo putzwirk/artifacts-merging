@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Oggetto casuale"
+  "item.artifactsmerging.random_artifact": "Oggetto casuale",
+  "item.artifactsmerging.random_artifact.tooltip": "Clic destro per aprire",
+  "item.artifactsmerging.random_artifact.empty": "Questa scatola è vuota"
 }

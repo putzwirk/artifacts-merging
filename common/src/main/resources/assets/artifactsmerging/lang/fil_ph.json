@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Random na gamit"
+  "item.artifactsmerging.random_artifact": "Random na gamit",
+  "item.artifactsmerging.random_artifact.tooltip": "I-right-click para buksan",
+  "item.artifactsmerging.random_artifact.empty": "Walang laman ang kahong ito"
 }

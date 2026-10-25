@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Náhodný předmět"
+  "item.artifactsmerging.random_artifact": "Náhodný předmět",
+  "item.artifactsmerging.random_artifact.tooltip": "Kliknutím pravým tlačítkem otevřete",
+  "item.artifactsmerging.random_artifact.empty": "Tato krabice je prázdná"
 }

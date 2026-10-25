@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Tilfeldig gjenstand"
+  "item.artifactsmerging.random_artifact": "Tilfeldig gjenstand",
+  "item.artifactsmerging.random_artifact.tooltip": "Høyreklikk for å åpne",
+  "item.artifactsmerging.random_artifact.empty": "Denne boksen er tom"
 }
