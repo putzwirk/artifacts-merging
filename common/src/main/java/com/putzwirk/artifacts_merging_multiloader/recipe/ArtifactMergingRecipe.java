@@ -35,6 +35,11 @@ public class ArtifactMergingRecipe extends CustomRecipe {
     }
 
     @Override
+    public ItemStack getResultItem(RegistryAccess registryAccess) {
+        return RandomArtifactItem.generic();
+    }
+
+    @Override
     public boolean canCraftInDimensions(int width, int height) {
         return width * height >= 1;
     }

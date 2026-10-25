@@ -1,6 +1,9 @@
 package com.putzwirk.artifacts_merging_multiloader.recipe;
 
 import com.putzwirk.artifacts_merging_multiloader.Constants;
+import com.putzwirk.artifacts_merging_multiloader.compat.ItemLookup;
+import com.putzwirk.artifacts_merging_multiloader.compat.MergeData;
+import com.putzwirk.artifacts_merging_multiloader.compat.StackData;
 import com.putzwirk.artifacts_merging_multiloader.config.MergeConfigManager;
 import com.putzwirk.artifacts_merging_multiloader.item.RandomArtifactItem;
 import com.putzwirk.artifacts_merging_multiloader.registry.ModItems;
@@ -23,15 +26,19 @@ import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.IdentityHashMap;
+import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ArtifactMergingRecipeTest {
 
     private static final String GROUP_ID = "test/group";
+    private static final List<String> GROUP_ITEMS =
+        List.of("minecraft:diamond", "minecraft:emerald", "minecraft:gold_ingot");
     private static boolean initialized;
 
     @TempDir
@@ -65,26 +72,73 @@ class ArtifactMergingRecipeTest {
     }
 
     @Test
-    void craftsRandomArtifactFromConfiguredGroup() {
+    void craftsSealedBoxFromConfiguredGroup() {
         loadTestGroup();
 
         TransientCraftingContainer container = containerOf(
             new ItemStack(Items.DIAMOND), new ItemStack(Items.EMERALD));
 
         ArtifactMergingRecipe recipe = new ArtifactMergingRecipe(
-            new ResourceLocation(Constants.MOD_ID, "artifact_merging"), CraftingBookCategory.MISC);
+            new ResourceLocation("artifactsmerging", "artifact_merging"), CraftingBookCategory.MISC);
 
         assertTrue(recipe.matches(container, null));
 
         ItemStack out = recipe.assemble(container, null);
         assertFalse(out.isEmpty());
-
-        String result = RandomArtifactItem.resultId(out);
-        assertNotNull(result);
-        assertTrue(MergeConfigManager.byId(GROUP_ID).items.contains(result));
-        assertNotEquals("minecraft:diamond", result);
-        assertNotEquals("minecraft:emerald", result);
         assertTrue(ModItems.isRandomArtifact(out));
+        assertNull(RandomArtifactItem.resultId(out));
+        assertEquals(GROUP_ID, RandomArtifactItem.groupId(out));
+    }
+
+    @Test
+    void openingBoxRollsFromGroupPoolWithoutInputs() {
+        loadTestGroup();
+
+        ItemStack box = RandomArtifactItem.create(GROUP_ID,
+            List.of("minecraft:diamond", "minecraft:emerald"));
+
+        ItemStack opened = RandomArtifactItem.open(box);
+        assertNotNull(opened);
+        assertEquals(Items.GOLD_INGOT, opened.getItem());
+    }
+
+    @Test
+    void openingLegacyBoxUsesStoredResult() {
+        loadTestGroup();
+
+        ItemStack box = RandomArtifactItem.create(GROUP_ID,
+            List.of("minecraft:diamond", "minecraft:emerald"));
+        StackData.write(box, new MergeData(GROUP_ID,
+            List.of("minecraft:diamond", "minecraft:emerald"), GROUP_ITEMS, "minecraft:emerald"));
+
+        ItemStack opened = RandomArtifactItem.open(box);
+        assertNotNull(opened);
+        assertEquals(Items.EMERALD, opened.getItem());
+    }
+
+    @Test
+    void openingBoxWithoutDataFallsBackToFirstGroup() {
+        loadTestGroup();
+
+        ItemStack opened = RandomArtifactItem.open(RandomArtifactItem.generic());
+        assertNotNull(opened);
+        assertTrue(GROUP_ITEMS.contains(ItemLookup.id(opened)));
+    }
+
+    @Test
+    void openingNonBoxReturnsNull() {
+        loadTestGroup();
+        assertNull(RandomArtifactItem.open(new ItemStack(Items.DIRT)));
+    }
+
+    @Test
+    void recipeExposesGenericBoxAsResultItem() {
+        loadTestGroup();
+
+        ArtifactMergingRecipe recipe = new ArtifactMergingRecipe(
+            new ResourceLocation("artifactsmerging", "artifact_merging"), CraftingBookCategory.MISC);
+
+        assertTrue(ModItems.isRandomArtifact(recipe.getResultItem(null)));
     }
 
     @Test
@@ -95,7 +149,7 @@ class ArtifactMergingRecipeTest {
             new ItemStack(Items.DIAMOND), new ItemStack(Items.DIRT));
 
         ArtifactMergingRecipe recipe = new ArtifactMergingRecipe(
-            new ResourceLocation(Constants.MOD_ID, "artifact_merging"), CraftingBookCategory.MISC);
+            new ResourceLocation("artifactsmerging", "artifact_merging"), CraftingBookCategory.MISC);
 
         assertFalse(recipe.matches(container, null));
     }

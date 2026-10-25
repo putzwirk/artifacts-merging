@@ -1,5 +1,7 @@
 {
   "item.artifactsmerging.random_artifact": "Random Item",
+  "item.artifactsmerging.random_artifact.tooltip": "Right-click to open",
+  "item.artifactsmerging.random_artifact.empty": "This box is empty",
   "artifactsmerging.config.title": "Artifacts Merging",
   "artifactsmerging.config.count": "Count",
   "artifactsmerging.config.items": "Items",
