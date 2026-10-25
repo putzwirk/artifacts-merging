@@ -1,6 +1,7 @@
 package com.putzwirk.artifacts_merging_multiloader.item;
 
 import com.putzwirk.artifacts_merging_multiloader.client.ClientNames;
+import com.putzwirk.artifacts_merging_multiloader.compat.ItemLookup;
 import com.putzwirk.artifacts_merging_multiloader.compat.MergeData;
 import com.putzwirk.artifacts_merging_multiloader.compat.MergeRoll;
 import com.putzwirk.artifacts_merging_multiloader.compat.StackData;
@@ -8,15 +9,28 @@ import com.putzwirk.artifacts_merging_multiloader.config.MergeConfigManager;
 import com.putzwirk.artifacts_merging_multiloader.config.MergeEntry;
 import com.putzwirk.artifacts_merging_multiloader.platform.Services;
 import com.putzwirk.artifacts_merging_multiloader.registry.ModItems;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
+import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class RandomArtifactItem extends Item {
+
+    public static final String TOOLTIP_KEY = "item.artifactsmerging.random_artifact.tooltip";
+    public static final String EMPTY_KEY = "item.artifactsmerging.random_artifact.empty";
 
     public RandomArtifactItem(Properties properties) {
         super(properties);
@@ -24,11 +38,55 @@ public class RandomArtifactItem extends Item {
 
     public static ItemStack create(String groupId, List<String> inputIds) {
         MergeEntry entry = MergeConfigManager.byId(groupId);
-        List<String> pool = entry == null ? List.of() : entry.items;
-        String result = MergeRoll.pick(pool, inputIds);
+        List<String> pool = entry == null ? List.of() : new ArrayList<>(entry.items);
         ItemStack stack = new ItemStack(ModItems.get());
-        StackData.write(stack, new MergeData(groupId, inputIds, pool, result));
+        StackData.write(stack, new MergeData(groupId, inputIds, pool, null));
         return stack;
+    }
+
+    public static ItemStack generic() {
+        return new ItemStack(ModItems.get());
+    }
+
+    @Nullable
+    public static ItemStack open(ItemStack box) {
+        if (!ModItems.isRandomArtifact(box)) {
+            return null;
+        }
+        MergeData data = StackData.read(box);
+        Item stored = data == null || data.result() == null ? null : ItemLookup.item(data.result());
+        if (stored != null) {
+            return new ItemStack(stored);
+        }
+        List<String> excluded = data == null ? List.of() : data.excluded();
+        String resultId = MergeRoll.pick(poolIds(box), excluded);
+        Item result = resultId == null ? null : ItemLookup.item(resultId);
+        return result == null ? null : new ItemStack(result);
+    }
+
+    @Override
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+        ItemStack stack = player.getItemInHand(hand);
+        if (level.isClientSide()) {
+            return InteractionResult.SUCCESS;
+        }
+        ItemStack opened = open(stack);
+        if (opened == null) {
+            player.displayClientMessage(Component.translatable(EMPTY_KEY), true);
+            return InteractionResult.FAIL;
+        }
+        stack.shrink(1);
+        if (!player.getInventory().add(opened)) {
+            player.drop(opened, false);
+        }
+        level.playSound(null, player.blockPosition(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1.0F, 1.2F);
+        return InteractionResult.CONSUME;
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
+        super.appendHoverText(stack, context, display, tooltip, flag);
+        tooltip.accept(Component.translatable(TOOLTIP_KEY).withStyle(ChatFormatting.GRAY));
     }
 
     public static String groupId(ItemStack stack) {

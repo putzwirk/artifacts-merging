@@ -17,7 +17,7 @@ public class ModItems {
 
     public static Item create() {
         return new RandomArtifactItem(new Item.Properties()
-            .stacksTo(1)
+            .stacksTo(16)
             .rarity(Rarity.UNCOMMON)
             .setId(ResourceKey.create(Registries.ITEM, RANDOM_ARTIFACT_ID)));
     }
