@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Objekt i rastësishëm"
+  "item.artifactsmerging.random_artifact": "Objekt i rastësishëm",
+  "item.artifactsmerging.random_artifact.tooltip": "Kliko me të djathtën për ta hapur",
+  "item.artifactsmerging.random_artifact.empty": "Kjo kuti është bosh"
 }

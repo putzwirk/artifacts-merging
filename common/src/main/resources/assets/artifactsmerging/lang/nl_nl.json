@@ -1,3 +1,5 @@
 {
-  "item.artifactsmerging.random_artifact": "Willekeurig voorwerp"
+  "item.artifactsmerging.random_artifact": "Willekeurig voorwerp",
+  "item.artifactsmerging.random_artifact.tooltip": "Rechtsklik om te openen",
+  "item.artifactsmerging.random_artifact.empty": "Deze doos is leeg"
 }
