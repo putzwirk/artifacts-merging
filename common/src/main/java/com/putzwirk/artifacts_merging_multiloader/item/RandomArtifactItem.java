@@ -75,9 +75,13 @@ public class RandomArtifactItem extends Item {
             player.displayClientMessage(Component.translatable(EMPTY_KEY), true);
             return InteractionResult.FAIL;
         }
-        stack.shrink(1);
-        if (!player.getInventory().add(opened)) {
-            player.drop(opened, false);
+        if (stack.getCount() <= 1) {
+            player.setItemInHand(hand, opened);
+        } else {
+            stack.shrink(1);
+            if (!player.getInventory().add(opened)) {
+                player.drop(opened, false);
+            }
         }
         level.playSound(null, player.blockPosition(), SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.PLAYERS, 1.0F, 1.2F);
         return InteractionResult.CONSUME;

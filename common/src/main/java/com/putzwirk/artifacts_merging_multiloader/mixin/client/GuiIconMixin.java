@@ -3,7 +3,6 @@ package com.putzwirk.artifacts_merging_multiloader.mixin.client;
 import com.putzwirk.artifacts_merging_multiloader.client.ClientIconCache;
 import com.putzwirk.artifacts_merging_multiloader.item.RandomArtifactItem;
 import com.putzwirk.artifacts_merging_multiloader.registry.ModItems;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.world.entity.LivingEntity;
@@ -32,11 +31,4 @@ public abstract class GuiIconMixin {
         ci.cancel();
     }
 
-    @Inject(method = "renderItemDecorations(Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;II)V", at = @At("HEAD"))
-    private void artifactsmerging$resultBackground(Font font, ItemStack stack, int x, int y, CallbackInfo ci) {
-        if (!ModItems.isRandomArtifact(stack)) {
-            return;
-        }
-        ((GuiGraphics) (Object) this).fill(x, y, x + 16, y + 16, 0xFFFFFF00);
-    }
 }
