@@ -14,7 +14,7 @@ public class ModItems {
     public static final ResourceLocation RANDOM_ARTIFACT_ID = Ids.of(Constants.MOD_ID, RANDOM_ARTIFACT_NAME);
 
     public static Item create() {
-        return new RandomArtifactItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
+        return new RandomArtifactItem(new Item.Properties().stacksTo(16).rarity(Rarity.UNCOMMON));
     }
 
     public static Item get() {

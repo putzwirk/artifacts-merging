@@ -34,6 +34,11 @@ public class ArtifactMergingRecipe extends CustomRecipe {
     }
 
     @Override
+    public ItemStack getResultItem(HolderLookup.Provider registries) {
+        return RandomArtifactItem.generic();
+    }
+
+    @Override
     public boolean canCraftInDimensions(int width, int height) {
         return width * height >= 1;
     }
