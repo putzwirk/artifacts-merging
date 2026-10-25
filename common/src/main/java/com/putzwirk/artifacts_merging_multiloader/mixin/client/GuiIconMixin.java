@@ -5,7 +5,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.putzwirk.artifacts_merging_multiloader.client.ClientIconCache;
 import com.putzwirk.artifacts_merging_multiloader.item.RandomArtifactItem;
 import com.putzwirk.artifacts_merging_multiloader.registry.ModItems;
-import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.world.item.ItemStack;
@@ -34,12 +33,4 @@ public abstract class GuiIconMixin {
         ci.cancel();
     }
 
-    @Inject(method = "renderGuiItemDecorations(Lnet/minecraft/client/gui/Font;Lnet/minecraft/world/item/ItemStack;II)V", at = @At("HEAD"))
-    private void artifactsmerging$resultBackground(Font font, ItemStack stack, int x, int y, CallbackInfo ci) {
-        if (!ModItems.isRandomArtifact(stack)) {
-            return;
-        }
-        PoseStack poseStack = new PoseStack();
-        GuiComponent.fill(poseStack, x, y, x + 16, y + 16, 0xFFFFFF00);
-    }
 }
